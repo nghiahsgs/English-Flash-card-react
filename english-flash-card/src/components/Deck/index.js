@@ -8,23 +8,23 @@ import WordsContext from "../../context/WordsContext"
 import "./style.css"
 
 export default function Deck(props){
-    const {listDecks,listWords,chooseDeck,currentDeckId,currentListWords}=React.useContext(WordsContext)
-    const currentDeck=_.filter(listDecks, function(deck){ return deck.id=== currentDeckId})
-    
-    
+    const {listDecks,listWords,chooseDeck,currentDeck,currentListWords}=React.useContext(WordsContext)
     
     return (
-        <>
-            {listDecks.map((item,i)=>(
+      <>
+        {listDecks.map((item, i) => (
+          <Button
+            className={item.id === currentDeck.id ? "text_red" : ""}
+            variant="contained"
+            key={i}
+            onClick={e => chooseDeck(e, item)}
+          >
+            {item.name}
+          </Button>
+        ))}
 
-                <Button className={item.id===currentDeckId?'text_red':''} variant="contained" key={i} onClick={e=>chooseDeck(e,item.id)}>
-                    {item.name}
-                </Button>
-            ))}
-
-            <Typography variant="h6">Current Deck: {currentDeck.name}</Typography>
-
-            
-        </>
-    )
+        <Typography variant="h6">Current Deck: {currentDeck.name}</Typography>
+        <Typography variant="h6">Total words: {currentListWords.length}</Typography>
+      </>
+    );
 }
